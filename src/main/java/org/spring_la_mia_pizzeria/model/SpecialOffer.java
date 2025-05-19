@@ -2,7 +2,8 @@ package org.spring_la_mia_pizzeria.model;
 
 import java.time.LocalDate;
 
-import org.hibernate.validator.constraints.Length;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,10 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -27,6 +25,7 @@ public class SpecialOffer {
 
     @ManyToOne
     @JoinColumn(name = "pizza_id", nullable = false)
+    @JsonIgnore
     private Pizza pizza;
 
     @NotNull(message = "the offer must have a name")

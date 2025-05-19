@@ -2,6 +2,9 @@ package org.spring_la_mia_pizzeria.model;
 
 import java.time.LocalTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +26,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "pizza_id", nullable = false)
+    @JsonIgnore
     private Pizza pizza;
 
     @NotNull(message = "The order time cannot be null")

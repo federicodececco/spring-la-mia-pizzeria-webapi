@@ -2,6 +2,8 @@ package org.spring_la_mia_pizzeria.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,12 +44,15 @@ public class Pizza {
     private Double price;
 
     @OneToMany(mappedBy = "pizza", cascade = { CascadeType.REMOVE })
+
     private List<Order> orders;
 
     @OneToMany(mappedBy = "pizza", cascade = { CascadeType.REMOVE })
+
     private List<SpecialOffer> specialOffers;
 
     @ManyToMany()
+
     @JoinTable(name = "ingredient_pizza", joinColumns = @JoinColumn(name = "pizza_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
     private List<Ingredient> ingredients;
 
