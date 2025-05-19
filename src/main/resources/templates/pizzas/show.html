@@ -1,0 +1,93 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+  <title>Pizza</title>
+  <div th:replace="~{fragments/resources :: head}"></div>
+</head>
+
+<body th:object="${pizza}">
+  <div th:replace="~{fragments/navbar :: navbar}"></div>
+  <div class="container">
+    <div>
+      <h1 class="">Pizze</h1>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Descrizione</th>
+          <th>prezzo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>[[*{name}]]</td>
+          <td>[[*{description}]]</td>
+          <td>[[*{price}]]</td>
+        </tr>
+
+      </tbody>
+    </table>
+    <div class="container">
+      <h3>Ingredienti:</h3>
+      <div class="row">
+        <p class="col-2" th:each="ingredient : ${ingredients}" th:text="${ingredient.name}"></p>
+      </div>
+    </div>
+    <a th:href="@{/offers/{id}/create(id=${id})}" class="btn btn-primary btn-sm ">Crea un'offerta</a>
+    <section th:unless="*{specialOffers.size < 1}" class="row mb-3">
+      <div class="container">
+        <table class="table">
+          <thead>
+            <tr>
+              <td>Nome</td>
+              <td>Data d'inizio</td>
+              <td>Data di fine</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="offer: *{specialOffers}" th:object="${offer}">
+              <td>[[*{title}]]</td>
+              <td>[[*{startDate}]]</td>
+              <td>[[*{endDate}]]</td>
+              <td>
+                <form th:action="@{/offers/edit/{id}(id=${offer.id})}"> <button type="submit"
+                    class="btn btn-warning btn-sm">Modifica</button></form>
+              </td>
+              <td>
+                <form th:action="@{/offers/delete/{id}(id=${offer.id})}" method="post"> <button type="submit"
+                    class="btn btn-danger btn-sm">cancella</button></form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="row mb-3" th:unless="*{orders.size < 1}">
+      <div class="container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Ora di ordinazione</th>
+              <th>Ora di Consegna</th>
+            </tr>
+          </thead>
+
+          <tr th:each="order : *{orders}" th:object="${order}">
+            <td>[[*{orderTime}]]</td>
+            <td>[[*{deliveryTime}]]</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+  </div>
+
+
+  <div th:replace="~{fragments/resources :: scripts}"></div>
+</body>
+
+</html>
